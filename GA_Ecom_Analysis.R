@@ -1,3 +1,6 @@
+# R script that reads in 2 csv's and performs all necessary manipulation according to README of take home
+
+
 # install and load packages
 install.packages('tidyverse')
 install.packages('openxlsx')
@@ -5,13 +8,14 @@ install.packages('openxlsx')
 library(tidyverse)
 library(openxlsx)
 
+# load data
 addsToCart = read.csv("./DataAnalyst_Ecom_data_addsToCart.csv")
 
 sessionCounts = read.csv('./DataAnalyst_Ecom_data_sessionCounts.csv')
 
 
 
-##### Create Monthly * Device table #####
+##### 1. Create Monthly * Device table #####
 
 # set dim_date col to date variable
 sessionCounts$dim_date = sessionCounts$dim_date %>% as.Date(format = '%m/%d/%y')
@@ -28,7 +32,7 @@ MonthlyDeviceSummary$ECR = round(MonthlyDeviceSummary$transactions/ MonthlyDevic
 
 
 
-##### Create MoM comparison #####
+##### 2. Create MoM comparison #####
 
 # create a start_month var to use as a key
 addsToCart$month_start = make_date(year = addsToCart$dim_year, month = addsToCart$dim_month)
